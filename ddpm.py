@@ -46,10 +46,10 @@ def create_sampling_animation(model, pipeline, config, interval=5, every_nth_ima
 
 
 class DDPMPipeline:
-    def __init__(self, beta_start=1e-4, beta_end=1e-2, num_timesteps=1000):
+    def __init__(self, beta_start=1e-4, beta_end=1e-2, num_timesteps=1000 , device = 'cuda'):
         self.betas = torch.linspace(beta_start, beta_end, num_timesteps)
         self.alphas = 1 - self.betas
-        self.alphas_hat = torch.cumprod(self.alphas, dim=0)
+        self.alphas_hat = torch.cumprod(self.alphas, dim=0).to(device)
         self.num_timesteps = num_timesteps
 
     def forward_diffusion(self, images, timesteps) -> tuple[torch.Tensor, torch.Tensor]:
