@@ -16,7 +16,7 @@ class TrainingConfig:
     diffusion_timesteps = 1000
     save_image_epochs = 5
     save_model_epochs = 5
-    dataset = 'smithsonian-butterflies-subset'
+    dataset = 'huggan/smithsonian_butterflies_subset'
     output_dir = f'models/{dataset.split("/")[-1]}'
     device = "cuda"
     seed = 0
