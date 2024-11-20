@@ -1,2 +1,5 @@
 # Denoising-Diffusion-Probabilistic-Model-DDPM
-This implementation follows default ResNet blocks architecture without any multiplying factors for simplicity. Also current UNet implementation works better with 128×128 resolution (see next sections) and thus has 5 feature map resoltuions (128 → 64 → 32 → 16 → 8). 
+This implementation follows default ResNet blocks architecture without any multiplying factors for simplicity. Also current UNet implementation. 
+
+# ONNX YOLOv6 Object Detection
+ ![!YOLOv6 Model](https://github.com/Gaurav14cs17/YOLOV6/blob/main/doc/img/Slide1.jpg)
