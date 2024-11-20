@@ -2,6 +2,7 @@ from ddpm import *
 from  dataloader import *
 from  model_2 import *
 from dataclasses import dataclass
+import torch.nn.functional as F
 
 
 @dataclass
