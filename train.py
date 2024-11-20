@@ -1,6 +1,6 @@
 from ddpm import *
 from  dataloader import *
-from  model import *
+from  model_2 import *
 from dataclasses import dataclass
 
 
@@ -38,7 +38,8 @@ def evaluate(config, epoch, pipeline, model):
 
 def main():
     train_dataloader = get_loader(training_config)
-    model = UNet(image_size=training_config.image_size,input_channels=training_config.image_channels).to(training_config.device)
+    model = Unet(dim=training_config.image_size, channels=3, dim_mults=(1, 2, 4,)).to(training_config.device)
+   # model = UNet(image_size=training_config.image_size,input_channels=training_config.image_channels).to(training_config.device)
     print("Model size: ", sum([p.numel() for p in model.parameters() if p.requires_grad]))
     optimizer = torch.optim.Adam(model.parameters(), lr=training_config.learning_rate)
     lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer=optimizer,
