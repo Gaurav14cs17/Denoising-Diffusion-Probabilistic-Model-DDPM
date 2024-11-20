@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 @dataclass
 class TrainingConfig:
-    image_size = 256
+    image_size = 128
     image_channels = 3
     train_batch_size = 6
     eval_batch_size = 6
@@ -27,7 +27,8 @@ training_config = TrainingConfig()
 
 
 def evaluate(config, epoch, pipeline, model):
-    noisy_sample = torch.randn(config.eval_batch_size,config.image_channels,config.image_size,config.image_size).to(config.device)
+    noisy_sample = torch.randn(config.eval_batch_size, config.image_channels, config.image_size, config.image_size).to(
+        config.device)
     images = pipeline.sampling(model, noisy_sample, device=config.device)
     images = postprocess(images)
     image_grid = create_images_grid(images, rows=2, cols=3)
@@ -39,7 +40,7 @@ def evaluate(config, epoch, pipeline, model):
 def main():
     train_dataloader = get_loader(training_config)
     model = Unet(dim=training_config.image_size, channels=3, dim_mults=(1, 2, 4,)).to(training_config.device)
-   # model = UNet(image_size=training_config.image_size,input_channels=training_config.image_channels).to(training_config.device)
+
     print("Model size: ", sum([p.numel() for p in model.parameters() if p.requires_grad]))
     optimizer = torch.optim.Adam(model.parameters(), lr=training_config.learning_rate)
     lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer=optimizer,
@@ -57,7 +58,8 @@ def main():
     for param_group in optimizer.param_groups:
         param_group['lr'] = training_config.learning_rate
 
-    diffusion_pipeline = DDPMPipeline(beta_start=1e-4, beta_end=1e-2, num_timesteps=training_config.diffusion_timesteps)
+    diffusion_pipeline = DDPMPipeline(beta_start=1e-4, beta_end=1e-2, num_timesteps=training_config.diffusion_timesteps,
+                                      device=training_config.device)
     global_step = training_config.start_epoch * len(train_dataloader)
     for epoch in range(training_config.start_epoch, training_config.num_epochs):
         progress_bar = tqdm(total=len(train_dataloader))
