@@ -7,10 +7,6 @@ This implementation follows default ResNet blocks architecture without any multi
 
 
 
- # References:
-* YOLOv6 model: https://github.com/meituan/YOLOv6
-* ONNX Model : https://github.com/ibaiGorordo/ONNX-YOLOv6-Object-Detection
-
 
 
 # References:
